@@ -1,0 +1,105 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-04-06 15:42:26
+ * @LastEditTime: 2021-04-07 10:48:42
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Interview Files/大纲/1101Promise.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    // setTimeout(() => {
+    //     console.log(`time`)
+    // }, 0)
+
+    function Promise_(fn) {
+        let succallbacks = [],
+            failcallbacks = [],
+            data = undefined,
+            reason = undefined,
+            status = 'pending';
+        this.then = function(fulfilled, rejected) {
+            return new Promise_((resolve, reject) => {
+                function suc(value) {
+                    let ret = typeof fulfilled === "function" && fulfilled(value) || value;
+                    if (ret && typeof ret['then'] == "function") {
+                        ret.then(value => {
+                            resolve(value)
+                        })
+                    } else {
+                        resolve(ret)
+                    }
+                }
+
+                function errback(reason) {
+                    reason = typeof rejected === 'function' && rejected(reason) || reason;
+                    reject(reason)
+                }
+            })
+
+            if (status === 'pending') {
+                succallbacks.push(fulfilled);
+                failcallbacks.push(rejected);
+                // return this;
+            } else if (status === 'fulfilled') {
+                // fulfilled(data);
+                suc(data)
+            } else {
+                // rejected(reason);
+                errback(reason)
+            }
+        }
+
+        function resolve(value) {
+            setTimeout(() => {
+                status = 'fulfilled';
+                data = value
+                succallbacks.forEach((callback) => {
+                    callback(value)
+                })
+            }, 0)
+        }
+
+        function reject(value) {
+            setTimeout(() => {
+                status = 'rejected';
+                reason = value
+                failcallbacks.forEach((callback) => {
+                    callback(value)
+                })
+            }, 0)
+        }
+
+        fn(resolve, reject)
+    }
+
+    let p = new Promise_((resolve, reject) => {
+        setTimeout(() => {
+            resolve(1)
+        }, 1000)
+    });
+    p.then(data => {
+        console.log(data);
+        return new Promise_((resolve, reject) => {
+            setTimeout(() => {
+                resolve(2)
+            }, 1000)
+        })
+    }).then(data => {
+        console.log(data)
+    })
+</script>

@@ -1,0 +1,49 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-04-06 15:43:40
+ * @LastEditTime: 2021-04-06 16:21:53
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Interview Files/大纲/1104instanceof.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>instanceof</title>
+</head>
+
+<body>
+    <p>思路:右边的值的prototype是否在左边的的原型链上</p>
+    <ol>
+        <li>取constructor的原型（constructor.prototype）</li>
+        <li>在原型链上取obj的原型（obj = obj._ _ proto _ ）</li>
+        <li>循环比较是否相等
+            <ul>
+                <li>相等，则是该类型的实例，返回true</li>
+                <li>不想等，则继续在原型链往上找该实例的原型 obj = obj. _ proto _ _</li>
+                <li>找到原型链的尽头（obj === null），则不是该类型的实例，返回false</li>
+            </ul>
+        </li>
+    </ol>
+</body>
+
+</html>
+<script>
+    function instanceOf(obj, constructor) {
+        //取constructor的原型
+        let prototype = constructor.prototype;
+        //取obj的原型
+        obj = obj.__proto__;
+        while (true) {
+            if (obj === prototype)
+                return true;
+            obj = obj.__proto__;
+            if (obj === null)
+                return false;
+        }
+    }
+</script>

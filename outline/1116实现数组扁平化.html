@@ -1,0 +1,43 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-04-06 15:59:59
+ * @LastEditTime: 2021-04-07 09:05:36
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Interview Files/大纲/1116数组扁平化实现.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拍平数组</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    let arr = [1, 2, [3, 45, [3, [55, 'hgj'], 'lmb', 87, [3, 5]]]];
+    document.write(`数组为:[${arr}]`);
+    // ES6 flat方式
+    console.log(arr.flat(Infinity));
+    // 递归方式
+    function fn(arr) {　　　　
+        let arr1 = []
+        arr.forEach((val) => {
+            if (val instanceof Array) {
+                arr1 = arr1.concat(fn(val))
+            } else {
+                arr1.push(val)
+            }
+        })
+
+        return arr1
+    }
+    console.log(fn(arr))
+</script>

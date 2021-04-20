@@ -1,0 +1,109 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-04-06 15:44:23
+ * @LastEditTime: 2021-04-08 14:05:36
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Interview Files/大纲/1105bindcallapply.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bind-call-apply</title>
+</head>
+
+<body>
+    <p>区别:</p>
+    <ul>
+        <li>改变this指向，call传参是一个一个传，apply传参是一个数组，且是直接执行函数</li>
+        <li>但是第二个参数都可以传arguments</li>
+        <li>bind()和call与apply不同。bind是新创建一个函数，然后把它的上下文绑定到bind()括号中的参数上，然后将它返回。</li>
+        <li>所以，bind后函数不会执行，而只是返回一个改变了上下文的函数副本，而call和apply是直接执行函数。</li>
+    </ul>
+    <button id="button">button</button>
+    <div id="text"></div>
+</body>
+
+</html>
+<script>
+    //实现bind:
+    let button = document.getElementById("button");
+    let text = document.getElementById("text");
+    /*===========================================================================================*/
+    Function.prototype._bind = function(context) {
+        let _this = this;
+        let args = Array.prototype.slice.call(arguments);
+
+        return function() {
+            return _this.apply(context, args.slice(1));
+        }
+    };
+    /*===========================================================================================*/
+
+    button.onclick = function() {
+        alert(this.id); // 弹出text
+    }._bind(text);
+
+    var name = '时间跳跃';
+    var obj = {
+        name: '听风是风'
+    };
+
+    //实现call:
+
+    // 原生call方法:
+    function foo(a, b, c) {
+        console.log(a + b + c + this.name);
+    };
+    foo("我的", "名字", "是"); //时间跳跃
+    foo.call(obj, "我的", "名字", "是"); //听风是风
+
+    // 模拟call方法
+    /*===========================================================================================*/
+    Function.prototype._call = function(obj) {
+        //判断是否为null或者undefined,同时考虑传递参数不是对象情况
+        obj = obj ? Object(obj) : window;
+        var args = [];
+        // 注意i从1开始
+        for (var i = 1, len = arguments.length; i < len; i++) {
+            args.push("arguments[" + i + "]");
+        };
+        // console.log(args)
+        obj.fn = this; // 此时this就是函数fn
+        console.log(this)
+        eval("obj.fn(" + args + ")"); // 执行fn
+        delete obj.fn; //删除fn
+    };
+    /*===========================================================================================*/
+    foo._call(obj, "我的", "名字", "是"); // 我的名字是听风是风
+    foo._call(null, "我的", "名字", "是"); // 我的名字是时间跳跃
+    foo._call(undefined, "我的", "名字", "是"); // 我的名字是时间跳跃
+
+    // 实现apply:
+
+    /*===========================================================================================*/
+    Function.prototype._apply = function(obj, arr) {
+        obj = obj ? Object(obj) : window;
+        obj.fn = this;
+        if (!arr) {
+            obj.fn();
+        } else {
+            var args = [];
+            // 注意这里的i从0开始
+            for (var i = 0, len = arr.length; i < len; i++) {
+                args.push("arr[" + i + "]");
+            };
+            eval("obj.fn(" + args + ")"); // 执行fn
+        };
+        delete obj.fn; //删除fn
+    };
+    /*===========================================================================================*/
+
+    foo._apply(obj, ["我的", "名字", "是"]); // 我的名字是听风是风
+    foo._apply(null, ["我的", "名字", "是"]); // 我的名字是时间跳跃
+    foo._apply(undefined, ["我的", "名字", "是"]); // 我的名字是时间跳跃
+</script>

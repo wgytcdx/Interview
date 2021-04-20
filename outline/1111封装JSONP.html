@@ -1,0 +1,46 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-04-06 15:49:43
+ * @LastEditTime: 2021-04-06 17:48:59
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Interview Files/大纲/1111封装JSONP.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>封装JSONP</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    // function myCallback(data) {
+    //     console.log(data)
+    // }
+
+    function jsonp(url, data, callback) {
+        if (typeof data == 'string') {
+            callback = data
+            data = {}
+        }
+        var hasParams = url.indexOf('?')
+        url += hasParams ? '&' : '?' + 'callback=' + callback
+        var params
+        for (var i in data) {
+            params += '&' + i + '=' + data[i]
+        }
+        url += params
+
+        var script = document.createElement('script')
+        script.setAttribute('src', url)
+        document.querySelector('head').appendChild(script)
+    }
+</script>

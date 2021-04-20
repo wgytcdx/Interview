@@ -1,0 +1,64 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-04-09 15:04:28
+ * @LastEditTime: 2021-04-09 15:23:50
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Interview Files/大纲/1117使用和不适用class实现继承.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>class继承</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    class Animal {
+        constructor(color) {
+            this.color = color
+        }
+        move() {}
+    }
+    class Dog extends Animal {
+        constructor(color, name) {
+            super(color)
+            this.name = name
+        }
+        say() {}
+    }
+
+    // 不适用class实现继承
+
+    function Animal(color) {
+        this.color = color
+    }
+    // 动物可以动
+    Animal.prototype.move = function() {}
+
+    function Dog(color, name) {
+        // 或者 Animal.apply(this, arguments)
+        Animal.call(this, color)
+        this.name = name
+    }
+    // 下面三行实现 Dog.prototype.__proto__ = Animal.prototype
+    function temp() {}
+    temp.prototype = Animal.prototype
+    Dog.prototype = new temp()
+
+    // 这行看不懂就算了，面试官也不问
+    Dog.prototype.constuctor = Dog
+    Dog.prototype.say = function() {
+        console.log('汪')
+    }
+
+    var dog = new Dog('黄色', '阿黄')
+</script>

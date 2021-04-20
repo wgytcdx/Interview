@@ -1,0 +1,51 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-04-06 15:48:20
+ * @LastEditTime: 2021-04-06 16:54:53
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Interview Files/大纲/1109深拷贝.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS深拷贝</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    function deepClone(obj) {　　
+        let objClone = Array.isArray(obj) ? [] : {};　　
+        if (obj && typeof obj === 'object') {　　　　
+            for (let key in obj) {　　　　　　
+                if (obj[key] && typeof obj[key] === 'object') {　　　　　　　　
+                    objClone[key] = deepClone(obj[key]);　　　　　　
+                } else {　　　　　　　　
+                    objClone[key] = obj[key]　　　　　　
+                }　　　　
+            }　　
+        }　　
+        return objClone;
+    }
+
+    let obj = {
+        name: 'abc',
+        age: 18,
+        method: function() {
+            console.log('method')
+        },
+    }
+    console.log(obj)
+    let obj1 = deepClone(obj);
+    obj.name = 'bcd';
+    console.log(obj);
+    console.log(obj1)
+</script>
