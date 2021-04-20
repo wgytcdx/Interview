@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-04 16:34:54
- * @LastEditTime: 2021-04-20 10:24:22
+ * @LastEditTime: 2021-04-20 10:51:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Interview Files/大纲/05-Promise.md
@@ -751,6 +751,77 @@ cccc
 all reason 2222
 
 3333
+
+##### 11. 实现`Promise.race()`方法
+
+`Promise.race()`接收一个包含多个`Promise`的数组，当有一个`Promise`为`fulfilled`状态时，整个大的`Promise`为`onfulfilled`，并执行`onFulfilled`回调函数。如果有一个`Promise`为`rejected`状态，则整个`Promise.race`为`rejected`。
+
+**MyPromise**
+
+```
+MyPromise.race = function(promiseArr) {
+  return new MyPromise((resolve, reject) => {
+    promiseArr.forEach(promise => {
+      promise.then((value) => {
+        resolve(value);   
+      }, reject);
+    });
+  });
+};
+```
+
+**test**
+
+```
+let promise1 = new MyPromise((resolve, reject) => {
+  console.log('aaaa');
+  setTimeout(() => {
+    resolve(1111);
+    console.log(1111);
+  }, 1000);
+});
+
+let promise2 = new MyPromise((resolve, reject) => {
+  console.log('bbbb');
+  setTimeout(() => {
+    reject(2222);
+    console.log(2222);
+  }, 2000);
+});
+
+let promise3 = new MyPromise((resolve, reject) => {
+  console.log('cccc');
+  setTimeout(() => {
+    resolve(3333);
+    console.log(3333);
+  }, 3000);
+});
+
+Promise.race([promise1, promise2, promise3]).then((value) => {
+  console.log('all value', value);
+}, (reason) => {
+  console.log('all reason', reason);
+})
+```
+
+打印结果：
+
+aaaa
+
+bbbb
+
+cccc
+
+1111
+
+all reason 1111
+
+2222
+
+3333
+
+
+参考:https://segmentfault.com/a/1190000016550260
 
 https://www.jianshu.com/p/d39f9d3168df;
 
