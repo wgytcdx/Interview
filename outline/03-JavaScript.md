@@ -1590,12 +1590,69 @@ function fib(n, current = 0, next = 1) {
 参考:https://blog.csdn.net/aliujiujiang/article/details/100145141
 
 
+#### 31. for循环与for...in循环的区别
 
+for循环我们通常用来循环一个数组、字符串
 
+```
+var array = [1,2,3,4,5,6];
+var sum = 0;
+for (var i=0; i<array.length; i++){
+    sum+=array[i];
+}
+alert(sum);
+```
 
+for…in循环呢，我们通常用来循环一个对象，
+```
+var stu = {
+    {name:"张三",
+    sex:"男",
+    age:13},
+    {name:"李四",
+    sex:"女",
+    age:18},
+    {name:"王五",
+    sex:"男",
+    age:10}
+};
 
+for(var i in stu){
+    document.write(stu[i].name);
+    document.write(stu[i].age);
+}
+```
 
+往细节了说他们的区别，这里通过代码验证一下
 
+for in 遍历的不是数组，而是array对象，它遍历访问的每个值其实是array的每个属性，而不是数组元素，比如：
+
+```
+var array = [1,2,3,4,5,6];
+array[10] = 10;
+for (var j in array){
+    alert(typeof j);
+    break;
+}
+```
+
+输入j，j的值为String
+
+同样的代码再来一遍
+
+```
+var array = [1,2,3,4,5,6];
+for (var i=0; i<array.length; i++){
+    alert(typeof  i);
+    break;
+}
+```
+
+输入i，i的值为Number
+
+所以for in 和for 是有区别的。
+
+并且，使用for in 的效率要远低于for循环
 
 
 

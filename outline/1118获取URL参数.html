@@ -1,0 +1,56 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-04-21 09:27:53
+ * @LastEditTime: 2021-04-21 10:06:07
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Interview Files/outline/1118获取URL参数.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    // ?name=123321&age=3213123&methods=hkjsdfhka&hasVal=false
+    function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串  
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            console.log(str)
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+    let a = {};
+    a = GetRequest()
+    console.log(a)
+
+    function getKey(obj) {
+        let key = [];
+        let val = [];
+        for (let i in obj) {
+            key.push(i);
+            val.push(obj[i])
+        }
+        return {
+            key,
+            val
+        }
+    }
+    console.log(getKey(a))
+</script>
