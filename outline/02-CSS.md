@@ -634,8 +634,19 @@ translate改变位置时，元素依然会占据其原始空间
 
 参考:https://blog.csdn.net/qq_33834489/article/details/79247119
 
+#### 23. 解决前端浏览器字体小于12px办法`transform:scale()`
 
+```
+.Num{
+    font-size: 14px;
+    -webkit-transform: scale(0.8);
+ }
+.Numsize-font{
+  font-size: 14*0.8px;
+}
+```
 
+**注意**:transform:scale()这个属性只可以缩放可以定义宽高的元素，而行内元素是没有宽高的，我们可以加上一个display:inline-block;
 
 
 

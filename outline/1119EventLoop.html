@@ -1,0 +1,84 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-04-21 13:46:13
+ * @LastEditTime: 2021-04-21 13:46:28
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Interview Files/outline/1119EventLoop.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // console.log(1);
+        // debugger
+        // setTimeout(() => {
+        //     console.log(2);
+        //     debugger
+        //     Promise.resolve().then(() => {
+        //         console.log(3)
+        //         debugger
+        //     });
+        // });
+
+        // new Promise((resolve, reject) => {
+        //     console.log(4)
+        //     debugger
+        //     resolve(5)
+        //     debugger
+        // }).then((data) => {
+        //     console.log(data);
+        //     debugger
+        // })
+
+        // setTimeout(() => {
+        //     console.log(6);
+        //     debugger
+        // })
+
+        // console.log(7);
+        // debugger
+
+        console.log(1);
+
+        setTimeout(() => {
+            console.log(2);
+            Promise.resolve().then(() => {
+                console.log(3)
+            });
+        });
+
+        new Promise((resolve, reject) => {
+            console.log(4)
+            resolve(5)
+        }).then((data) => {
+            console.log(data);
+
+            Promise.resolve().then(() => {
+                console.log(6)
+            }).then(() => {
+                console.log(7)
+
+                setTimeout(() => {
+                    console.log(8)
+                }, 0);
+            });
+        });
+        setTimeout(() => {
+            console.log(9);
+        })
+
+        console.log(10);
+        // 1,4,10,5,6,7,2,3,9,8
+    </script>
+</body>
+
+</html>
