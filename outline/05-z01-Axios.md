@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-04-19 09:47:46
- * @LastEditTime: 2021-04-19 09:48:02
+ * @LastEditTime: 2021-04-22 09:34:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Interview Files/大纲/05-z01-Axios.md
@@ -61,3 +61,43 @@ axios.interceptors.response.use(function (response) {
 const myInterceptor = axios.interceptors.request.use(function () {/*...*/});
 axios.interceptors.request.eject(myInterceptor);
 ```
+
+#### 8. Axios跨域访问
+
+```
+//main.js
+import axios from 'axios'
+Vue.prototype.$axios = axios
+axios.defaults.baseURL = '/api'  //关键代码
+
+//vue.config.js
+proxyTable: {
+  '/api': {
+    target:'http://api.douban.com/v2', // 请求跨域地址
+    changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+    pathRewrite:{  // 路径重写，
+      '^/api': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.douban.com/v2/XXXXX这个地址的时候直接写成/api即可。
+    }
+  }
+},
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

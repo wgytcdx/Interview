@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-04-06 15:50:16
- * @LastEditTime: 2021-04-06 17:51:25
+ * @LastEditTime: 2021-04-21 16:05:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Interview Files/大纲/1112实现new.html
@@ -29,6 +29,63 @@
 </body>
 
 </html>
+<script>
+    function _new1(constructor, ...args) {
+        let obj = {};
+        obj.__proto__ = constructor.prototype;
+
+        let res = constructor.apply(obj, args);
+        return Object.prototype.toString.call(res) === '[object] [Object]' ? res : obj;
+
+    }
+    let obj = {};
+    let arr = [];
+    let num = 1;
+    let bool = true;
+    let str = 'hzt';
+    let udf = undefined;
+    let nul = null;
+    console.log('====function========================');
+    console.log(_new1.__proto__);
+    console.log(_new1.prototype);
+    console.log(_new1.constructor);
+    console.log('====object========================');
+    console.log(obj.__proto__);
+    console.log(obj.prototype);
+    console.log(obj.constructor);
+    console.log('====array========================');
+    console.log(arr.__proto__);
+    console.log(arr.prototype);
+    console.log(arr.constructor);
+    console.log('====number========================');
+    console.log(num.__proto__);
+    console.log(num.prototype);
+    console.log(num.constructor);
+    console.log('====boolean========================');
+    console.log(bool.__proto__);
+    console.log(bool.prototype);
+    console.log(bool.constructor);
+    console.log('====string========================');
+    console.log(str.__proto__);
+    console.log(str.prototype);
+    console.log(str.constructor);
+    console.log('====undefined========================');
+    // console.log(udf.__proto__);
+    // console.log(udf.prototype);
+    // console.log(udf.constructor);
+    console.log('====null========================');
+    // console.log(nul.__proto__);
+    // console.log(nul.prototype);
+    // console.log(nul.constructor);
+    console.log('============================');
+    const Fun1 = function(name) {
+        this.name = name;
+        console.log(this)
+        console.log(Fun1.prototype == _new1.__proto__);
+        // console.log(_new1.__proto__)
+    }
+    console.log(_new1(Fun1, 'xiaoming'))
+</script>
 <script>
     function _new(constructor, ...arg) {
         var obj = {}; // 对应于上面的步骤 1
