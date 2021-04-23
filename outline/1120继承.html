@@ -1,0 +1,91 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-04-23 10:06:32
+ * @LastEditTime: 2021-04-23 14:11:04
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Interview Files/outline/1120继承.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    class Person {
+        constructor(name) {
+            this.name = name;
+            this.kind = 'Person'
+        }
+        eat(food) {
+            console.log(`${food}`)
+        }
+    }
+
+    let abc = new Person('martin');
+    abc.eat('apple');
+
+    class Son extends Person {
+        constructor(name) {
+            super()
+            this.name = name
+        }
+    }
+
+    let ab = new Son('hzt');
+    ab.eat('egg');
+    console.log(ab instanceof Person)
+
+    function Create(name) {
+        this.name = name;
+        this.kind = 'Create';
+        console.log(this.name)
+    };
+    Create.prototype.destroy = function() {
+        console.log('destroy')
+    };
+    let ccd = new Create();
+
+    function Create1(name) {
+        Create.apply(this, arguments);
+        this.name = name;
+    }
+
+    Create1.prototype = new Create();
+    Create1.prototype.constructor = Create1;
+
+    let aaa = new Create1('hzt');
+    aaa.destroy()
+    console.log(Create.prototype);
+    console.log(Create.__proto__);
+    console.log(Create1.prototype);
+
+    console.log(Create.__proto__ == Create1.prototype)
+
+    console.log(aaa.__proto__ == Create1.prototype)
+
+    function myInstanceof(L, R) {
+        let l = L.__proto__;
+        let r = R.prototype;
+        while (true) {
+            if (l === r) return true;
+            l = L.__proto__
+            if (l === null) return false
+        }
+    }
+    console.log(myInstanceof(ccd, Create));
+    console.log(myInstanceof(aaa, Create1));
+    console.log(ccd instanceof Create);
+    // console.log(myInstanceof(Create1, Create))
+    // console.log(myInstanceof(aaa, Create))
+</script>
