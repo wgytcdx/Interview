@@ -1,0 +1,69 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-04-25 09:27:15
+ * @LastEditTime: 2021-04-25 09:59:13
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Interview Files/outline/1301nextTick.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    html,
+    body,
+    #app {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+    }
+</style>
+
+<body>
+    <div id="app">
+        {{message}}
+        <button @click="showInput">show Button</button>
+        <button @click="getOffset">getWidth&height</button>
+        <input type="text" id="inputs" v-model="inputs" v-show="showbtn">
+        <div id="boxs" ref="boxs" style="width: 40%;height: 30%;border: 1px solid #ccc;" v-show="showbtn"></div>
+    </div>
+</body>
+
+</html>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.4/vue.min.js"></script>
+<script>
+    let app = new Vue({
+        name: 'app',
+        el: '#app',
+        data() {
+            return {
+                message: 123,
+                inputs: 123,
+                showbtn: false,
+            }
+        },
+        methods: {
+            showInput() {
+                this.showbtn = !this.showbtn;
+                this.$nextTick(() => {
+                    document.getElementById('inputs').focus();
+                });
+            },
+            getOffset() {
+                this.showbtn = !this.showbtn;
+                console.log(this.$refs.boxs.offsetWidth);
+                // console.log(this);
+            }
+        }
+    });
+    // console.log(app.message)
+    // app.message = 'change'
+    // console.log(app.$el.textContent)
+</script>

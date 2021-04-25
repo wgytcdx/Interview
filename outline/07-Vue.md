@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-04 16:32:19
- * @LastEditTime: 2021-04-12 10:31:46
+ * @LastEditTime: 2021-04-25 10:19:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Interview Files/大纲/07-Vue.md
@@ -346,28 +346,6 @@ vue3.0 的发布与 vue2.0 相比，优势主要体现在：更快、更小、�
 
 参考:https://www.jianshu.com/p/4dff7c2cdaaa
 
-#### 16. nextTick怎么用？原理是什么
-
-在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM。
-
-原理:
-
-Vue 实现响应式并不是数据发生变化之后 DOM 立即变化，而是按一定的策略进行 DOM 的更新。
-
-简单来说，Vue 在修改数据后，视图不会立刻更新，而是等同一事件循环中的所有数据变化完成之后，再统一进行视图更新。
-
-简单总结事件循环：
-
-同步代码执行 -> 查找异步队列，推入执行栈，执行Vue.nextTick[事件循环1] ->查找异步队列，推入执行栈，执行Vue.nextTick[事件循环2]...
-
-总之，异步是单独的一个tick，不会和同步在一个 tick 里发生，也是 DOM 不会马上改变的原因。
-
-用途:
-
-应用场景：需要在视图更新之后，基于新的视图进行操作。
-
-参考:https://segmentfault.com/a/1190000012861862
-
 #### 17. diff算法和时间复杂度
 
 参考:https://blog.csdn.net/qq_40413670/article/details/107895096
@@ -376,9 +354,51 @@ Vue 实现响应式并不是数据发生变化之后 DOM 立即变化，而是�
 
 参考:https://www.jianshu.com/p/d95a7b8afa06
 
+#### 19. $nextTick
+
+Vue 实现响应式**并不是数据发生变化之后 DOM 立即变化**，而是按一定的策略进行 DOM 的更新。
+
+Vue事件循环说明:
+
+简单来说，Vue 在修改数据后，视图不会立刻更新，而是等**同一事件循环**中的所有数据变化完成之后，再统一进行视图更新。
+
+用法: 在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM。
+
+使用`Vue.nextTick()`是为了可以获取更新后的DOM 。
+
+触发时机：在同一事件循环中的数据变化后，DOM完成更新，立即执行`Vue.nextTick()`的回调。
+
+同一事件循环中的代码执行完毕 =&gt; DOM 更新 =&gt; nextTick callback触发
+
+应用场景：
+
+1. 在Vue生命周期的`created()`钩子函数进行的DOM操作一定要放在`Vue.nextTick()`的回调函数中。
+
+原因：是`created()`钩子函数执行时DOM其实并未进行渲染。
+
+2. 在数据变化后要执行的某个操作，而这个操作需要使用随数据改变而改变的DOM结构的时候，这个操作应该放在`Vue.nextTick()`的回调函数中。
+
+原因：Vue异步执行DOM更新，只要观察到数据变化，Vue将开启一个队列，并缓冲在同一事件循环中发生的所有数据改变，如果同一个watcher被多次触发，只会被推入到队列中一次。
 
 
+- 例: 点击按钮显示原本以 v-show = false 隐藏起来的输入框，并获取焦点。
 
+```
+showsou(){
+  this.showit = true //修改 v-show
+  document.getElementById("keywords").focus()  //在第一个 tick 里，获取不到输入框，自然也获取不到焦点
+}
+```
+修改为：
+```
+showsou(){
+  this.showit = true
+  this.$nextTick(function () {
+    // DOM 更新了
+    document.getElementById("keywords").focus()
+  })
+}
+```
 
 
 
