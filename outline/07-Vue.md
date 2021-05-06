@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-04 16:32:19
- * @LastEditTime: 2021-04-25 10:19:57
+ * @LastEditTime: 2021-04-28 15:21:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Interview Files/大纲/07-Vue.md
@@ -399,6 +399,14 @@ showsou(){
   })
 }
 ```
+
+#### 20. mock
+
+在前后端分离的开发中，Mock 数据是前端开发中很重要的一个环节，前端可以不必强依赖后端接口，只需要约定好对应的数据接口，前端可以通过 Mock 模拟数据先行开发，在后端接口开发完成后，只需要切换对应的接口地址即可，可以保证项目的同步开发。本地内容：在mock文件夹下中的index文件中定义好自有的接口路径，再到根目录的service
+
+文件夹下生成对应业务模块的js文件。文件内将相应微服务的接口匹配好。暴露出去供业务功能调用。
+
+链接：https://zhuanlan.zhihu.com/p/82896897
 
 
 

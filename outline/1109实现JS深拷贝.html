@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-04-06 15:48:20
- * @LastEditTime: 2021-04-06 16:54:53
+ * @LastEditTime: 2021-05-06 08:44:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Interview Files/大纲/1109深拷贝.html
@@ -43,9 +43,23 @@
             console.log('method')
         },
     }
-    console.log(obj)
+
+    function abc() {
+        this.kind = 'abc';
+        console.log(abc);
+    }
+
     let obj1 = deepClone(obj);
     obj.name = 'bcd';
     console.log(obj);
     console.log(obj1)
+
+    let aaa = deepClone(abc);
+    let bbb = abc.bind()
+    console.log(aaa)
+    console.log(bbb)
+    let arr = [];
+    console.log(arr.prototype);
+    // console.log(JSON.parse(JSON.stringify(undefined)))
+    console.log(typeof JSON.stringify(undefined))
 </script>

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-04-06 15:44:23
- * @LastEditTime: 2021-04-08 14:05:36
+ * @LastEditTime: 2021-04-28 16:32:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Interview Files/大纲/1105bindcallapply.html
@@ -74,7 +74,7 @@
         };
         // console.log(args)
         obj.fn = this; // 此时this就是函数fn
-        console.log(this)
+        // console.log(this)
         eval("obj.fn(" + args + ")"); // 执行fn
         delete obj.fn; //删除fn
     };

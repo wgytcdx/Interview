@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-05 11:07:35
- * @LastEditTime: 2021-04-16 14:20:46
+ * @LastEditTime: 2021-04-26 14:20:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Interview Files/大纲/09-webpack.md
@@ -42,6 +42,16 @@ webpack是JavaScript应用程序的静态打包器. 当webpack处理应用程序
 - 完成模块编译：在经过第4步使用 Loader 翻译完所有模块后，得到了每个模块被翻译后的最终内容以及它们之间的依赖关系；
 - 输出资源：根据入口和模块之间的依赖关系，组装成一个个包含多个模块的 Chunk，再把每个Chunk 转换成一个单独的文件加入到输出列表，这步是可以修改输出内容的最后机会；
 - 输出完成：在确定好输出内容后，根据配置确定输出的路径和文件名，把文件内容写入到文件系统。
+
+#### 5. webpack、gulp、grunt的区别
+
+三者都是前端构建工具, grunt和gulp在早期比较流行, 现在webpack比较主流, 不过一些轻量化任务还是会用gulp处理, 比如单独打包css文件等.
+
+- grunt和gulp都是基于任务和流(Task, Stream)的, 类似jQuery, 找到一个(一类)文件, 对其做一系列链式操作, 更新流上的数据, 整条链式操作构成了一个任务, 多个任务就构成了整个web的构建流程.
+
+- webpack是基于入口的. webpack会自动递归解析入口所需要加载的所有资源文件, 然后用不同的Loader来处理不同的文件, 用Plugin来扩展webpack功能. 
+
+
 
 
 
