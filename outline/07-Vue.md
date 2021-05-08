@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-04 16:32:19
- * @LastEditTime: 2021-04-28 15:21:10
+ * @LastEditTime: 2021-05-06 14:56:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Interview Files/大纲/07-Vue.md
@@ -195,11 +195,11 @@ data(){
 },
 watch:{
     secondChange:{
-    handler(oldVal,newVal){
-        console.log(oldVal)
-        console.log(newVal)
-    },
-    deep:true
+        handler(oldVal,newVal){
+            console.log(oldVal)
+            console.log(newVal)
+        },
+        deep:true
     }
 },
 ```

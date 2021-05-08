@@ -1,0 +1,41 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-05-07 15:12:55
+ * @LastEditTime: 2021-05-07 15:14:11
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Interview Files/outline/1203实现rem.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    (function(doc, win) {
+        let docEl = doc.documentElement;
+        let resizeEvt = "orientationchange" in window ? "orientationchange" : "resize";
+        let recalc = function() {
+            let clientWidth = docEl.clientWidth;
+            if (!clientWidth) {
+                return
+            };
+            docEl.style.fontSize = 100 * (clientWidth / 750) + "px";
+        };
+        if (!doc.addEventListener) {
+            return
+        };
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener("DOMContentLoaded", recalc, false);
+    })(document, window);
+</script>
